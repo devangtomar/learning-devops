@@ -128,9 +128,13 @@ Example :
 
 `kubectl logs <pod-name> --previous`
 
-### Executing a command inside the pod
+### Executing a command inside the pod in interactive mode..
 
 `kubectl exec -it <pod-name> /bin/sh`
+
+### For not interactive mode..
+
+`kubectl exec <pod-name> -- date`
 
 ### You can attach the pod as well if you don't have any terminal inside the pod
 
