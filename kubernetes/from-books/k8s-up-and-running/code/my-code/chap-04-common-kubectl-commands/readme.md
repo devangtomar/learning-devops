@@ -120,6 +120,14 @@ Example :
 
 `kubectl logs <pod-name>`
 
+### (add `-f` flag to continously tailing the logs)
+
+`kubectl logs <pod-name> -f`
+
+### (add `--previous` flag to check logs for previous pods)
+
+`kubectl logs <pod-name> --previous`
+
 ### Executing a command inside the pod
 
 `kubectl exec -it <pod-name> /bin/sh`
