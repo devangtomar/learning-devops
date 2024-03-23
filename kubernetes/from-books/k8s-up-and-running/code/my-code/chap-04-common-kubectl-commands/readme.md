@@ -95,3 +95,61 @@ You can use either of these..
 OR
 
 `kubectl delete <resource-name> <obj-name>`
+
+## Labelling and annotating objects
+
+### For adding a label
+
+`kubectl label <resource-name> <object-name> labelName=labelValue`
+
+Example :
+
+`kubectl label node docker-desktop color=red`
+
+### For overwriting a label
+
+`kubectl label node docker-desktop color=red --overwrite`
+
+### For removing a label
+
+`kubectl label node docker-desktop color-`
+
+## Debugging commands
+
+### Checking logs for a pod (add `-f` flag to continously tailing the logs)
+
+`kubectl logs <pod-name>`
+
+### Executing a command inside the pod
+
+`kubectl exec -it <pod-name> /bin/sh`
+
+### You can attach the pod as well if you don't have any terminal inside the pod
+
+`kubectl attach -it <pod-name>`
+
+### Copying stuff to-fro from pod
+
+`kubectl cp <pod-name>:/file/inside/pod /desired/location`
+
+### Port forwarding
+
+`kubectl port-forward <pod-name> 8080:80`
+
+### Getting events (You can also use `--watch` to see the state continously)
+
+`kubectl get events`
+
+### Getting top resources consuming pods/nodes
+
+`kubectl top nodes`
+
+`kubectl top pods`
+
+## Cluster management
+
+Cordon : Preventing any pods to get schedule on the cluster
+Drain : Stopping any running pods on a cluster
+
+For Cordon : `kubectl cordon`
+For drain : `kubectl drain`
