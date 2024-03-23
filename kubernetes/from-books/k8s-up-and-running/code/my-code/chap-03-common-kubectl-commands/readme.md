@@ -33,7 +33,65 @@ Located at `$HOME/.kube/config`
 Output can be controlled via `-o` flag :
 
 `kubectl get nodes -o yaml`
+
 OR
+
 `kubectl get nodes -o json`
 
-### For grep/awk certain things
+### For grep/awk certain things..
+
+`kubectl get pods my-pod -o jsonpath --template={.status.podIP}`
+
+## Getting multiple resources
+
+`kubectl get pods,services`
+
+## Describing the resource
+
+`kubectl describe <resource-name> <obj-name>`
+
+Example :
+
+`kubectl describe node docker-desktop`
+
+## Explaining resource type
+
+`kubectl explain <resource type>`
+
+Example :
+
+`kubectl explain pods`
+
+## Creating, Updating and destroying kubernetes objects
+
+### Creation part :
+
+`kubectl apply -f obj.yaml`
+
+### Updation part :
+
+`kubectl apply -f obj.yaml`
+
+OR without opening/changing the YAML
+
+'kubectl edit <resource-name> <obj-name>'
+
+### For checking previously applied settings..
+
+kubectl apply command records previously applied settings
+
+You can use either of these..
+
+- applied
+- set-last-applied
+- view-last-applied
+
+`kubectl apply -f myobj.yml view-last-applied`
+
+### Deletio part :
+
+`kubectl delete -f myobj.yml`
+
+OR
+
+`kubectl delete <resource-name> <obj-name>`
