@@ -153,3 +153,5 @@ Drain : Stopping any running pods on a cluster
 
 For Cordon : `kubectl cordon`
 For drain : `kubectl drain`
+
+## For GUI use Rancher dashboard and headlamp project
