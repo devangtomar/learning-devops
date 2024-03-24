@@ -43,7 +43,7 @@ kubectl create deployment alpaca-prod --image=gcr.io/kuar-demo/kuard-amd64:v0.9-
 
 kubectl create deployment alpaca-prod --image=gcr.io/kuar-demo/kuard-amd64:v0.9-blue --port=8080 --target-port=8080 --type=NodePort
 
-kubectl expose expose alpaca-prod --port=8080 --target-port=8080 --type=LoadBalancer
+kubectl  expose alpaca-prod --port=8080 --target-port=8080 --type=LoadBalancer
 
 kubectl create expose alpaca-prod --port=8080 --target-port=8080 --type=ClusterIP
 
@@ -54,4 +54,10 @@ kubectl create expose alpaca-prod --port=8080 --target-port=8080 --type=External
 
 ```
 kubectl delete deployment alpaca-prod
+```
+
+## Create a ingress
+
+```
+kubectl create ingress alpaca-prod --class=internal
 ```
