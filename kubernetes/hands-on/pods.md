@@ -194,4 +194,6 @@ then execute something via : `kubectl exec -it multicontainer -c webcontainer --
 
 ## Port forwarding
 
-`kubectl port-forward podName 8080:80 # it's basically hostPort:containerPort`
+```yaml
+kubectl port-forward podName 8080:80 # it's basically hostPort:containerPort
+```
