@@ -92,6 +92,13 @@ spec:
 
 ### Create ClusterIP Service to reach backend pods.
 
+- ClusterIP Service created. If any resource in the cluster sends a request to the ClusterIP and Port 5000, this request will reach to one of the pod behind the ClusterIP Service.
+- We can show it from frontend pods.
+- Connect one of the front-end pods (list: "kubectl get pods", connect: "kubectl exec -it frontend-5966c698b4-b664t -- bash")
+- In the K8s, there is DNS server (core dns based) that provide us to query ip/name of service.
+- When running nslookup (backend), we can reach the complete name and IP of this service (serviceName.namespace.svc.cluster_domain, e.g. backend.default.svc.cluster.local).
+- When running curl to the one of the backend pods with port 5000, service provides us to make connection with one of the backend pods.
+
 To generate quickly via dry run use.. `kubectl create service clusterip my-clusterip --tcp=80:80 --dry-run=client -o yaml`
 
 ```yml
@@ -115,6 +122,9 @@ status:
 ```
 
 ### Create NodePort Service to reach frontend pods from Internet.
+
+- With NodePort Service (you can see the image below), frontend pods can be reachable from the opening port (32098). In other words, someone can reach frontend pods via WorkerNodeIP:32098. NodePort service listens all of the worker nodes' port (in this example: port 32098).
+- While working with minikube, it is only possible with minikube tunnelling. Minikube simulates the reaching of the NodeIP:Port with tunneling feature.
 
 To generate quickly via dry run use.. `kubectl create service nodeport frontend --tcp=80:80 --dry-run=client -o yaml;`
 
@@ -140,3 +150,26 @@ status:
 ```
 
 Once nodeport service is up.. then run this.. `curl http://localhost:30594`
+
+## Create Loadbalancer Service on the cloud K8s cluster to reach frontend pods from Internet.
+
+- LoadBalancer Service is only available wih cloud services (because in the local cluster, it can not possible to get external-ip of the load-balancer service). So if you have connection to the one of the cloud service (Azure-AKS, AWS EKS, GCP GKE), please create loadbalance service on it (run: "kubectl apply -f backend_loadbalancer.yaml").
+- If you run on the cloud, you'll see the external-ip of the loadbalancer service.
+- In addition, it can be possible service with Imperative way (with command).
+
+```yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontendlb
+spec:
+  type: LoadBalancer
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+```
+
+`kubectl expose deployment backend --type=clusterip --name=backend`
