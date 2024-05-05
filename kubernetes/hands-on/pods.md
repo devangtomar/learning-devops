@@ -67,6 +67,12 @@ kubectl attach podName
 kubectl delete pods podName
 ```
 
+# Imperative way (via CLI) to deal with pods
+
+```bash
+kubectl run pod_1 --image=nginx --dry-run=client -o yaml
+```
+
 # Declarative way (YAML) to deal with pods
 
 ```yml
