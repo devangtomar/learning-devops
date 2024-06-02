@@ -9,9 +9,14 @@ spec:
   containers:
   - image: nginx
     name: podnoone
+    command: ['sh', 'echo "the app is running!"']
     ports:
     - containerPort: 80
     resources: {}
+  initContainers:
+  - name: initcontainer
+    image: busybox                # init container starts firstly and look up myservice is up or not in every 2 seconds, if there is myservice available, initcontainer closes. 
+    command: ['sh', '-c', "until nslookup myservice; do echo waiting for myservice; sleep 2; done"]
   dnsPolicy: ClusterFirst
   restartPolicy: Never
 status: {}

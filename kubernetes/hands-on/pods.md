@@ -198,6 +198,8 @@ Post this just run : `kubectl apply -f multi-pods.yml`
 
 then execute something via : `kubectl exec -it multicontainer -c webcontainer -- /bin/sh`
 
+### Note : look at `-c` option above.. it's used for executing a command for a particular container..
+
 ## Port forwarding
 
 ```yaml
