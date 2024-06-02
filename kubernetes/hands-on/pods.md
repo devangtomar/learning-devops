@@ -101,6 +101,10 @@ spec:
 
 `kubectl delete -f pod1.yaml`
 
+## Getting a running pod in a YAML..
+
+ `kubectl get pods yourPodName -o yaml;`
+
 # Pod lifecycle
 
 - Pending
