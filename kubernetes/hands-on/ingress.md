@@ -1,5 +1,82 @@
 ## LAB: K8s Ingress
 
+### Difference b/w k8s load balancer vs ingress controller
+
+In Kubernetes, both Ingress and LoadBalancer are used to expose services to external traffic, but they serve different purposes and operate at different layers of the network stack. Here's a comparison to help you understand the differences:
+
+### Ingress
+
+**Ingress** is an API object that manages external access to services within a Kubernetes cluster, typically HTTP and HTTPS. It provides a way to define rules for routing traffic to different services based on the request's host and path.
+
+- **Use Case**: Ingress is used for more complex routing scenarios, such as directing traffic to different services based on URL paths or hostnames.
+- **Configuration**: Ingress resources are defined using YAML files, and an Ingress Controller is required to implement the rules defined in the Ingress resources.
+- **Flexibility**: Ingress can handle multiple services and provide features like SSL termination, name-based virtual hosting, and load balancing.
+- **Example**:
+
+  ```yaml
+  apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    name: example-ingress
+  spec:
+    rules:
+      - host: example.com
+        http:
+          paths:
+            - path: /
+              pathType: Prefix
+              backend:
+                service:
+                  name: example-service
+                  port:
+                    number: 80
+  ```
+
+- **Command to apply**:
+
+  ```sh
+  kubectl apply -f ingress.yaml
+  ```
+
+### LoadBalancer
+
+**LoadBalancer** is a type of Service that exposes the service externally using a cloud provider's load balancer. When you create a Service of type LoadBalancer, Kubernetes will provision an external load balancer that routes traffic to your service.
+
+- **Use Case**: LoadBalancer is used for simpler scenarios where you need to expose a single service to the internet.
+- **Configuration**: LoadBalancer services are defined using YAML files, and the cloud provider's load balancer is automatically configured to route traffic to the service.
+- **Simplicity**: LoadBalancer is straightforward to set up but is typically limited to exposing a single service per load balancer.
+- **Example**:
+
+  ```yaml
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: example-loadbalancer
+  spec:
+    type: LoadBalancer
+    selector:
+      app: example
+    ports:
+      - protocol: TCP
+        port: 80
+        targetPort: 8080
+  ```
+
+- **Command to apply**:
+
+  ```sh
+  kubectl apply -f loadbalancer.yaml
+  ```
+
+### Summary
+
+- **Ingress**: Best for complex routing, multiple services, and advanced features like SSL termination and virtual hosting.
+- **LoadBalancer**: Best for simple, straightforward exposure of a single service to the internet.
+
+Choose the one that best fits your use case. If you need advanced routing and multiple services, go with Ingress. If you need to expose a single service with minimal configuration, go with LoadBalancer.
+
+### Lab
+
 This scenario shows how K8s ingress works on minikube. When browsing urls, ingress controller (nginx) directs traffic to the related services.
 
 ![image](https://user-images.githubusercontent.com/10358317/152985194-76a3cb57-70c4-438a-a714-eae7ef287d83.png) (ref: Kubernetes.io)
