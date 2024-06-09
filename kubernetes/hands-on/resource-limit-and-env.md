@@ -59,7 +59,7 @@ spec:
     name: pods
     env:
     - name: USER
-        value: "username"
+      value: "username"
     - name: DATABASE_HOST
-        value: "testdb.test.com"
+      value: "testdb.test.com"
 ```
