@@ -173,3 +173,9 @@ spec:
 ```
 
 `kubectl expose deployment backend --type=clusterip --name=backend`
+
+Also you could use :  `kubectl create service loadbalancer lb_1 --tcp=80:80 --dry-run=client -o yaml`
+
+## Create external Service on the cloud K8s cluster to reach frontend pods from Internet.
+
+`kubectl create service externalname ext1  --tcp=80:80 --dry-run=client -o yaml --external-name=ewew;`

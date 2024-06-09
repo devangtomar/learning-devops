@@ -33,6 +33,10 @@ status: {}
 
 `kubectl get pods -o=jsonpath='{.items[*].metadata.name}';`
 
+### OR
+
+`kubectl get pods -o json | jq -r '.items[].metadata.name'`
+
 ### For running the pods
 
 ```bash
