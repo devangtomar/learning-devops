@@ -118,3 +118,20 @@ spec:
 
 - "Sometimes, applications are temporarily unable to serve traffic. For example, an application might need to load large data or configuration files during startup, or depend on external services after startup. In such cases, you don't want to kill the application, but you don't want to send it requests either. Kubernetes provides readiness probes to detect and mitigate these situations. A pod with containers reporting that they are not ready does not receive traffic through Kubernetes Services." (Ref: Kubernetes.io)
 - Readiness probe is similar to liveness pod. Only difference is to define "readinessProbe" instead of "livenessProbe".
+
+
+## In short difference
+
+In Kubernetes, probes are used to determine the state of a container. There are three types of probes: liveness, readiness, and startup probes. Each serves a different purpose:
+
+1. **Liveness Probe**:
+   - **Purpose**: To determine if a container is running. If the liveness probe fails, the kubelet kills the container, and the container is subjected to its restart policy.
+   - **Use Case**: Useful for detecting and remedying situations where an application is stuck in a deadlock or has crashed.
+
+2. **Readiness Probe**:
+   - **Purpose**: To determine if a container is ready to serve traffic. If the readiness probe fails, the endpoints controller removes the pod's IP address from the endpoints of all services that match the pod.
+   - **Use Case**: Useful for controlling which pods are used as backends for services, ensuring that only healthy pods receive traffic.
+
+3. **Startup Probe**:
+   - **Purpose**: To determine if a container has started successfully. If the startup probe fails, the kubelet kills the container and follows the restart policy. Once the startup probe succeeds, the kubelet stops performing the startup probe and switches to the liveness probe.
+   - **Use Case**: Useful for applications that have a long initialization phase. It ensures that the application has fully started before the liveness and readiness probes are applied.
