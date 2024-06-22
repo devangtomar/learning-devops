@@ -8,6 +8,8 @@
 
 - **Internet Gateway**: Enables communication between instances in a VPC and the internet, handling both inbound and outbound traffic.
 
+- **Transit Gateway**: Acts as a network transit hub, connecting VPCs, on-premises networks, and other AWS services through a single gateway. It simplifies the network architecture by reducing the number of required peering connections and routing tables, and it can handle both ingress and egress traffic, providing centralized management and control over interconnectivity.
+
 - **Ingress**: Refers to incoming traffic to a network or application, typically controlled by rules or policies for security and routing.
 
 - **Egress**: Refers to outgoing traffic from a network or application, also controlled by rules or policies to manage access to external resources.
