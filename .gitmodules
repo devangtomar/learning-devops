@@ -1,3 +1,6 @@
 [submodule "terraform/learning-terraform"]
 	path = terraform/learning-terraform
 	url = https://github.com/devangtomar/learning-terraform.git
+[submodule "ansible/self-host"]
+	path = ansible/self-host
+	url = https://github.com/devangtomar/self-host.git
