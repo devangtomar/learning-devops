@@ -275,6 +275,27 @@ Advanced error handling and debugging techniques can help you manage complex pla
         msg: "The value of my_var is {{ my_var }}"
 ```
 
+You can also use Ansible blocks with `rescue` and `always` to handle errors more gracefully and ensure cleanup or notification steps are executed.
+
+```yaml
+- name: Playbook with error handling using blocks
+  hosts: all
+  tasks:
+    - block:
+        - name: Task that may fail
+          command: /bin/false
+      rescue:
+        - name: Handle the failure
+          debug:
+            msg: "The previous task failed, but we are handling it."
+      always:
+        - name: Always run this task
+          debug:
+            msg: "This runs regardless of success or failure."
+```
+
+This approach allows you to group related tasks, specify recovery actions if something fails, and define steps that should always run, improving reliability and maintainability.
+
 ### 9. **Ansible Collections**
 
 Ansible Collections are a distribution format for Ansible content that can include playbooks, roles, modules, and plugins. Collections make it easier to share and reuse Ansible content.
