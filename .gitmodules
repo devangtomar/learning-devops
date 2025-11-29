@@ -4,3 +4,6 @@
 [submodule "ansible/self-host"]
 	path = ansible/self-host
 	url = https://github.com/devangtomar/self-host.git
+[submodule "docker/learning-docker"]
+	path = docker/learning-docker
+	url = https://github.com/devangtomar/learning-docker.git
