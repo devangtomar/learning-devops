@@ -1,0 +1,3 @@
+[submodule "terraform/learning-terraform"]
+	path = terraform/learning-terraform
+	url = https://github.com/devangtomar/learning-terraform.git
