@@ -23,3 +23,17 @@ AWS (Amazon Web Services) provides multiple layers of security to protect resour
 ## Project Implemented in the video
 
 ![Screenshot 2023-06-29 at 12 14 32 AM](https://github.com/iam-veeramalla/aws-devops-zero-to-hero/assets/43399466/30bbc9e8-6502-438b-8adf-ece8b81edce9)
+
+
+## Difference between Security Groups and NACLs
+
+| Feature                     | Security Groups                              | Network Access Control Lists (NACLs)        |
+|-----------------------------|----------------------------------------------|----------------------------------------------|
+| Level of Operation          | Instance level                               | Subnet level                                 |
+| Stateful vs. Stateless      | Stateful                                     | Stateless                                    |
+| Rule Evaluation Order       | All rules are evaluated                      | Rules are evaluated in order (lowest to highest)|
+| Default Behavior            | Default security group allows all outbound traffic and denies all inbound traffic | Default NACL allows all inbound and outbound traffic |
+| Association                 | Associated with EC2 instances                  | Associated with subnets                      |
+| Rule Types                  | Inbound and outbound rules                     | Inbound and outbound rules                    |
+| Rule Specification          | Can specify rules using IP addresses, CIDR blocks, security group IDs, or DNS names | Can specify rules using IP address ranges and port ranges |
+| Use Case                    | Control traffic to and from individual instances | Control traffic at the subnet level              |
