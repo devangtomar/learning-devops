@@ -1,0 +1,13 @@
+# Example: Full “List Buckets Only” Policy WITH Condition
+{
+  "Version": "2012-10-17",
+  "Statement":
+    [
+      {
+        "Effect": "Allow",
+        "Action": "s3:ListAllMyBuckets",
+        "Resource": "*",
+        "Condition": { "Bool": { "aws:MultiFactorAuthPresent": "true" } },
+      },
+    ],
+}
