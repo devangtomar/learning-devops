@@ -34,17 +34,16 @@ The **Amazon VPC** service provides a virtual network that acts as a logically i
 Effective VPC design requires an understanding of the fundamental concepts used to define the address space:
 
 - **IP Addresses:** Unique identifiers for every device on the internet, typically either **IPv4** or **IPv6**.
+
   - **IPv4:** A 32-bit address (four decimal numbers separated by dots). IP addresses are segmented into a **network ID** and a **host ID**, with the allocation defined by **IP classes** (A, B, C, D, E),.
 
     ![alt text](./images/ip-address-class.png)
-
 
     ![alt text](./images/ipv4-and-subnet-mask.png)
 
   - **CIDR (Classless Inter-Domain Routing):** A method of representing an IP address and its subnet mask using a suffix (e.g., `/16`), allowing for variable subnet mask lengths to optimize IP address space usage and slow the exhaustion of IPv4 addresses,.
 
-      ![alt text](./images/variable-length-subnet-mask.png)
-
+    ![alt text](./images/variable-length-subnet-mask.png)
 
   - **IPv6:** A 128-bit address space, much larger than IPv4, represented by eight groups of hexadecimal digits separated by colons,.
 
@@ -52,7 +51,7 @@ Effective VPC design requires an understanding of the fundamental concepts used 
 
 - **Public and Private IPs:** **Private IP addresses** are used for communication within a closed network and fall within reserved ranges (e.g., `10.0.0.0/8`). **Public IP addresses** (assigned by an ISP) are used for external communication over the internet.
 
-    ![alt text](./images/private-ipv4.png)
+  ![alt text](./images/private-ipv4.png)
 
 - **Elastic IP (EIP):** A **static, public IPv4 address** associated with an AWS account that can be assigned to an Amazon EC2 instance. It is used when a resource requires a consistent IP address, even if the underlying instance is replaced.
 
@@ -64,7 +63,6 @@ When creating a VPC, customers specify an initial **IPv4 CIDR block** (required 
 
 - **Public Subnets:** Subnets configured with a route that directs traffic destined for the internet (`0.0.0.0/0`) to an **Internet Gateway (IGW)**.
 - **Private Subnets:** Subnets that **do not have a direct route to an IGW**, limiting external access,. Sensitive resources should be placed here.
-
 
 ![alt text](./images/overview-of-different-aws-nw-components.png)
 
@@ -111,14 +109,24 @@ When resources in different VPCs need to communicate privately, several AWS solu
 ![alt text](./images/vpc-peering.png)
 
 - **AWS Transit Gateway (TGW):** A scalable, regional **hub-and-spoke** solution that acts as a central router, connecting thousands of VPCs, on-premises networks, and other AWS services,. TGW is preferred over VPC peering for large scale and centralized network routing control.
+
+![alt text](./images/aws-transit-gw.png)
+
 - **AWS PrivateLink:** Provides secure, **unidirectional** connectivity, exposing an application as a **Service Provider** to **Consumers** in another VPC using private IP addresses over the AWS backbone network,. This ensures traffic does not traverse the public internet.
+
+![alt text](./images/endpoint-services.png)
 
 ### Hybrid Connectivity (On-Premises to AWS)
 
 To connect a customer's on-premises data center to the AWS cloud:
 
 - **AWS VPN (Virtual Private Network):** Sets up a secure, encrypted connection channel over the internet between the customer's **Customer Gateway** and the AWS **VPN Gateway**,.
+
+![alt text](./images/vpn-connection.png)
+
 - **AWS Direct Connect:** Provides a dedicated, high-bandwidth network connection (fiber-optic cable) from the data center to an AWS Direct Connect location, bypassing the public internet entirely. Connections are established using a **Virtual Interface (VIF)**, which can be configured as public, private, or transit.
+
+![alt text](./images/aws-direct-connect.png)
 
 ---
 
@@ -128,6 +136,8 @@ To connect a customer's on-premises data center to the AWS cloud:
 
 Route 53 is a highly available and scalable **Domain Name System (DNS)** service used for domain registration, DNS routing, and health checking. It facilitates the conversion of human-readable domain names (e.g., `www.google.com`) into network-required IP addresses,.
 
+![alt text](./images/route-53.png)
+
 - **Alias Records:** A Route 53-specific feature that allows routing traffic directly to AWS resources (like ELBs or CloudFront distributions) at no additional cost for the DNS query.
 - **Anycast:** Route 53 utilizes Anycast technology, routing requests to the nearest edge location globally to reduce latency and increase availability.
 
@@ -136,9 +146,15 @@ Route 53 is a highly available and scalable **Domain Name System (DNS)** service
 ELB is a managed service that automatically distributes incoming traffic across healthy targets (like EC2 instances or containers), ensuring high availability and scalability.
 
 - **ELB Types:**
+
   - **Application Load Balancer (ALB):** Operates at **Layer 7** (Application Layer), making sophisticated routing decisions based on application parameters like HTTP headers, path, or cookies,. ALBs terminate connections (e.g., for SSL/TLS offloading),.
   - **Network Load Balancer (NLB):** Operates at **Layer 4** (Transport Layer) and makes fast routing decisions based purely on network variables like IP address and port,. NLBs are optimized for high performance, sudden spiky traffic, and long-lived TCP connections.
+  - **Classic load balancer (CLB):** Legacy version of an LB that supports both L4 and L7 traffic
+  - **Gateway load balancer (GWLB):** Used as an L3 gateway and L4 LB for the IP protocol
+
 - **Functionality:** The client connects to the **Load Balancer**; **Listeners** check protocols/ports and forward traffic based on rules to **Target Groups** which direct traffic to the actual backend targets,.
+
+![alt text](./images/aws-elb-config.png)
 
 ### Amazon API Gateway
 
@@ -147,6 +163,10 @@ API Gateway is a fully managed service for creating, publishing, and securing RE
 - **API Types:** Supports **stateless** APIs (REST and HTTP) and **stateful** APIs (WebSocket).
 - **Features:** Provides advanced features such as rate limiting, authentication (IAM, Cognito), integration with AWS WAF, and caching of endpoint responses,.
 
+![alt text](./images/aws-api-gw.png)
+
 ### Amazon CloudFront (CDN)
 
 CloudFront is the AWS **Content Delivery Network (CDN)**, leveraging a global network of **edge locations** to cache content near end users. This strategy drastically reduces latency for serving both static content (e.g., images from S3) and dynamic content from web services,. CloudFront provides security features through integration with AWS Shield and WAF and ensures data protection via encryption.
+
+![alt text](./images/aws-cloudfront.png)
