@@ -49,6 +49,8 @@ The primary distinction between the Pub/Sub model and the observer pattern is th
 
 **Message queues** are fundamental infrastructure components that serve as a temporary holding pen for messages awaiting routing from publishers to subscribers. **Apache Kafka** is a prominent example of a message queue system designed to support **high-throughput** applications and handle large volumes of data efficiently,.
 
+![alt text](./images/message-broker-and-queues.png)
+
 ---
 
 ## Choreography and Orchestration
@@ -112,11 +114,19 @@ Solution architecture defines how systems are structured to meet business requir
 1.  **Monoliths:** In this architecture, all application components are **tightly integrated** and run as a **single service**.
     - **Advantages:** They are straightforward to develop, test, deploy, and scale horizontally in early stages. Network interactions between components are skipped, which reduces latency and simplifies handling of unreliable networks.
     - **Challenges:** As applications grow, monoliths become difficult to modify, and scaling specific functions independently becomes challenging.
+
+    ![alt text](./images/monolith-arch.png)
+
 2.  **N-tier Architectures:** Applications are logically divided into layers, typically including Presentation (frontend), Business Logic (middle-tier), and Data Management (backend)—a configuration known as **three-tier architecture**.
     - This **separation of concerns** enhances maintainability, and each layer can be scaled independently according to demand.
+
+    ![alt text](./images/n-tier-architecture.png)
+
 3.  **Microservices:** This architecture decomposes systems into smaller, **loosely coupled services**, with each service focusing on a single functionality.
     - **Benefits:** Services can be developed, deployed, and scaled independently, enabling faster development cycles, improved fault isolation, and technology diversity.
     - **Challenges:** Increased complexity in operations management, interservice communications, data consistency, and transaction management. Service overhead can increase as each service may require dedicated resources, increasing the resource footprint.
+
+    ![alt text](./images/microservices-arch.png)
 
 ---
 
@@ -197,6 +207,9 @@ HDFS is an open source filesystem designed to run on **commodity hardware** for 
 Apache Kafka is an open source distributed **event-streaming platform** designed for high reliability and scalability, capable of handling trillions of events daily in real time.
 
 - **Key Features:** It ensures durability by **persisting messages on disk** and replicating them across multiple brokers. Its design is optimized for **high throughput**, processing millions of records per second. Scalability is achieved through its **partitioning mechanism**, allowing data distribution across multiple nodes.
+
+![alt text](./images/kafka-arch.png)
+
 - **Kafka Architecture:**
   - **Producers:** Push data records into **Topics**.
   - **Consumers:** Read data from Topics, consuming records in the stored order within partitions.
